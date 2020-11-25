@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
@@ -14,15 +15,23 @@ export default class Note extends React.Component {
 
   handleClickDelete = e => {
     e.preventDefault()
-    const noteid = this.props.id
+    const noteId = this.props.id
 
-    fetch(`${config.API_ENDPOINT}/notes/${noteid}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
+      headers: {
+        'content-type': 'application/json'
+      },
     })
+      .then(res => {
+        if (!res.ok)
+          return res.json().then(e => Promise.reject(e))
+        return res.json()
+      })
       .then(() => {
-        this.context.deleteNote(noteid)
+        this.context.deleteNote(noteId)
         // allow parent to perform extra behaviour
-        this.props.onDeleteNote(noteid)
+        this.props.onDeleteNote(noteId)
       })
       .catch(error => {
         console.error({ error })
@@ -30,12 +39,12 @@ export default class Note extends React.Component {
   }
 
   render() {
-    const { notename, id, modified } = this.props
+    const { name, id, modified } = this.props
     return (
       <div className='Note'>
         <h2 className='Note__title'>
           <Link to={`/note/${id}`}>
-            {notename}
+            {name}
           </Link>
         </h2>
         <button

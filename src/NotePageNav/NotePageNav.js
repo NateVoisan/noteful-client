@@ -17,10 +17,12 @@ export default class NotePageNav extends React.Component {
   static contextType = ApiContext;
 
   render() {
-    const { notes, folders } = this.context
-    const { noteid } = this.props.match.params
-    const note = findNote(notes, noteid) || {};
-    const folder = findFolder(folders, note.folderid)
+    const { notes, folders, } = this.context
+    console.log(this.props.match.params)
+    console.log(notes, folders);
+    const { noteId } = this.props.match.params
+    const note = findNote(notes, noteId) || {}
+    const folder = findFolder(folders, note.folderId)
     return (
       <div className='NotePageNav'>
         <CircleButton
@@ -35,7 +37,7 @@ export default class NotePageNav extends React.Component {
         </CircleButton>
         {folder && (
           <h3 className='NotePageNav__folder-name'>
-            {folder.foldername}
+            {folder.name}
           </h3>
         )}
       </div>

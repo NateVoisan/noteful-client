@@ -1,3 +1,4 @@
+  
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import ApiContext from '../ApiContext'
@@ -15,10 +16,10 @@ export default class AddNote extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const newNote = {
-      notename: e.target['note-name'].value,
-      content: e.target['note-content'].value,
-      folderid: e.target['note-folder-id'].value,
+      name: e.target['note-name'].value,
       modified: new Date(),
+      folderId: e.target['note-folder-id'].value,
+      content: e.target['note-content'].value,
     }
     fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'POST',
@@ -34,7 +35,7 @@ export default class AddNote extends Component {
       })
       .then(note => {
         this.context.addNote(note)
-        this.props.history.push(`/folder/${note.folderid}`)
+        this.props.history.push(`/folder/${note.folderId}`)
       })
       .catch(error => {
         console.error({ error })
@@ -67,7 +68,7 @@ export default class AddNote extends Component {
               <option value={null}>...</option>
               {folders.map(folder =>
                 <option key={folder.id} value={folder.id}>
-                  {folder.foldername}
+                  {folder.name}
                 </option>
               )}
             </select>
