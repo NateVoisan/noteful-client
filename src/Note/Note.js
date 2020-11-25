@@ -19,9 +19,6 @@ export default class Note extends React.Component {
 
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
-      headers: {
-        'content-type': 'application/json'
-      },
     })
       .then(res => {
         if (!res.ok)
@@ -30,7 +27,6 @@ export default class Note extends React.Component {
       })
       .then(() => {
         this.context.deleteNote(noteId)
-        // allow parent to perform extra behaviour
         this.props.onDeleteNote(noteId)
       })
       .catch(error => {
@@ -39,7 +35,7 @@ export default class Note extends React.Component {
   }
 
   render() {
-    const { notes=[], name, id, modified } = this.context
+    const { name, id, modified } = this.props
 
     return (
       <div className='Note'>

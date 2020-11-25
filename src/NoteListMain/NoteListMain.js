@@ -13,19 +13,16 @@ export default class NoteListMain extends React.Component {
       params: {}
     }
   }
-  static contextType = ApiContext;
+  static contextType = ApiContext
 
   render() {
     const { folderId } = this.props.match.params
     const { notes=[] } = this.context
-    let notesForFolder = getNotesForFolder(notes, parseInt(folderId)).filter(note => note.folderId === folderId);
-    console.log(getNotesForFolder(notes, parseInt(folderId)), folderId)
+    const notesForFolder = getNotesForFolder(notes, parseInt(folderId))
     return (
       <section className='NoteListMain'>
         <ul>
-          {
-          console.log(notesForFolder)}
-          {getNotesForFolder(notes, parseInt(folderId)).filter(note => note.folderId === folderId).map(note =>
+          {notesForFolder.map(note =>
             <li key={note.id}>
               <Note
                 id={note.id}
