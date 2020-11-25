@@ -12,7 +12,15 @@ export default class NoteListNav extends React.Component {
     adding: false,
   };
   static contextType = ApiContext;
+  
 
+  addFolderHandler = () => {
+    console.log("notelist nav state before: ", this.state)
+    this.setState({ adding: !this.state.adding })
+    this.forceUpdate()
+    console.log("notelist nave state: ", this.state);
+  };
+  
   render() {
     const { folders = [], notes = [] } = this.context;
     return (
