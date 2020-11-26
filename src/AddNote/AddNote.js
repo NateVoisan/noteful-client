@@ -17,10 +17,11 @@ export default class AddNote extends Component {
     e.preventDefault()
     const newNote = {
       name: e.target['note-name'].value,
-      modified: new Date(),
-      folderId: e.target['note-folder-id'].value,
       content: e.target['note-content'].value,
+      folderId: e.target['note-folder-id'].value,
+      modified: new Date(),
     }
+    console.log(`${config.API_ENDPOINT}/notes`)
     fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'POST',
       headers: {
@@ -52,13 +53,13 @@ export default class AddNote extends Component {
             <label htmlFor='note-name-input'>
               Name
             </label>
-            <input type='text' id='note-name-input' name='note-name' />
+            <input type='text' id='note-name-input' name='note-name' required />
           </div>
           <div className='field'>
-            <label htmlFor='note-content-input'>
+            <label htmlFor='note-content-input' required>
               Content
             </label>
-            <textarea id='note-content-input' name='note-content' />
+            <textarea id='note-content-input' name='note-content' required />
           </div>
           <div className='field'>
             <label htmlFor='note-folder-select'>
