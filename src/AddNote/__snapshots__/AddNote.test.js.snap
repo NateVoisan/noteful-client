@@ -21,6 +21,7 @@ exports[`AddNote component renders the complete form 1`] = `
       <input
         id="note-name-input"
         name="note-name"
+        required={true}
         type="text"
       />
     </div>
@@ -29,12 +30,14 @@ exports[`AddNote component renders the complete form 1`] = `
     >
       <label
         htmlFor="note-content-input"
+        required={true}
       >
         Content
       </label>
       <textarea
         id="note-content-input"
         name="note-content"
+        required={true}
       />
     </div>
     <div
